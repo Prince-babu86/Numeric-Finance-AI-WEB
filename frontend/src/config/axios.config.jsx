@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const axiosInstanse = axios.create({
-    baseURL:"http://localhost:3000",
+    baseURL:"https://numeric-finance-ai-web.onrender.com",
     withCredentials:true
 })
 

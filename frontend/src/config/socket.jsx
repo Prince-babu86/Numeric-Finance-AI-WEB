@@ -1,6 +1,6 @@
 import {io} from 'socket.io-client'
 
-const socket = io("http://localhost:3000" , {
+const socket = io("https://numeric-finance-ai-web.onrender.com" , {
   withCredentials:true,
    transports: ["websocket", "polling"], // allow both transports
 });

@@ -15,7 +15,7 @@ const AiMessagesModel = require("../models/aiMessages.Model");
 const initSocketServer = async (httpServer) => {
   const io = new Server(httpServer, {
     cors: {
-      origin: "http://localhost:5173",
+      origin: "https://numeric-finance-ai-web-y61b.vercel.app",
       methods: ["GET", "POST"],
       credentials: true,
     },

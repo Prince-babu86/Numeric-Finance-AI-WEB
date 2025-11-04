@@ -38,7 +38,7 @@ const registerController = async (req, res) => {
     );
     res.cookie("token", token, {
       httpOnly: true, // 🔒 safer, JS cannot access
-      secure: false, // ❌ false for localhost, ✅ true only on HTTPS/production
+      secure: true, // ❌ false for localhost, ✅ true only on HTTPS/production
       sameSite: "lax", // ✅ allow cross-origin cookies for localhost
       path: "/", // ✅ make cookie available everywhere
       maxAge: 7 * 24 * 60 * 60 * 1000, // ✅ 7 days persistence
@@ -77,7 +77,7 @@ const loginController = async (req, res) => {
 
     res.cookie("token", token, {
       httpOnly: true, // 🔒 safer, JS cannot access
-      secure: false, // ❌ false for localhost, ✅ true only on HTTPS/production
+      secure: true, // ❌ false for localhost, ✅ true only on HTTPS/production
       sameSite: "lax", // ✅ allow cross-origin cookies for localhost
       path: "/", // ✅ make cookie available everywhere
       maxAge: 7 * 24 * 60 * 60 * 1000, // ✅ 7 days persistence
