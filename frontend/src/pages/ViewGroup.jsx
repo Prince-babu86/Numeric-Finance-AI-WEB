@@ -14,10 +14,14 @@ import {
 import { useParams } from "react-router-dom";
 import axios from "../config/axios.config";
 import socket from "../config/socket";
+import { useData } from "../context/DataContext";
 
 const ViewGroup = () => {
   const { id } = useParams();
   const chatContainerRef = useRef(null);
+
+  const {user} = useData()
+  console.log(user?._id);
 
   const [message, setMessage] = useState("");
   const [messages, setMessages] = useState([]);
@@ -60,6 +64,8 @@ const ViewGroup = () => {
       chatContainerRef.current.scrollTop = chatContainerRef.current.scrollHeight;
     }
   }, [messages]);
+
+  console.log(messages);
 
   // Fetch group data
   const fetchGroupData = async () => {
@@ -105,12 +111,12 @@ const ViewGroup = () => {
   // Send a message
   const sendMessage = () => {
     if (!message.trim()) return;
-    const msgData = {
-      sender: { name: "You" },
-      message,
-      timestamp: new Date(),
-    };
-    setMessages((prev) => [...prev, msgData]);
+    // const msgData = {
+    //   sender:user,
+    //   message,
+    //   timestamp: new Date(),
+    // };
+    // setMessages((prev) => [...prev, msgData]);
     socket.emit("sendMessage", { id, message });
     setMessage("");
   };
@@ -169,17 +175,17 @@ const ViewGroup = () => {
             <div
               key={msg._id || index}
               className={`flex ${
-                msg.sender.name === "You" ? "justify-end" : "justify-start"
+                msg?.sender?._id === user?._id ? "justify-end" : "justify-start"
               }`}
             >
               <div
                 className={`p-3 max-w-sm rounded-2xl ${
-                  msg.sender.name === "You"
+                  msg?.sender?._id === user?._id
                     ? "bg-green-600 text-white"
                     : "bg-gray-800 text-gray-300"
                 }`}
               >
-                <p className="text-sm font-semibold mb-1">{msg.sender.name}</p>
+                <p className="text-sm font-semibold mb-1">{user._id === msg.sender._id  ?  "" : msg?.sender?.name}</p>
                 <p className="text-sm">{msg.message}</p>
               </div>
             </div>
